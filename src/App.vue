@@ -1,7 +1,8 @@
 <template>
   <div id="app">
+    <el-button>这是第一次使用vue框架创建的button</el-button>
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <HelloWorld msg="Welcome to Your First Vue Day!"/>
   </div>
 </template>
 
