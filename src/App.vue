@@ -1,32 +1,32 @@
 <template>
   <!-- 0.v-bind -->
-  <div :id="idName">
-    <!-- 1.v-html -->
-    <span v-html="message"></span>
-    <!-- <span>{{ msg }}</span> -->
-    <el-button :disabled="false" v-on:click="createHelloMsg">确定</el-button>
-    <!-- 4.v-on -->
-    <el-button @click="createHelloMsg">确定（简写）</el-button>
-
-    <!-- 2.v-if/v-show -->
-    <div v-if="isShow">😄</div>
-    <div v-else>😂</div>
-
-    <!-- 2.v-if/v-show -->
-    <div v-show="isShow">😄</div>
-
-    <!-- 3.v-for -->
-    <div v-for="(names, index) in nameArr" :key="index">
-      {{ index + 1 }} . {{ names }}
+  <div class="page">
+    <div class="bg-video">
+      <video src="https://s3plus.meituan.net/zhaopin-official-website-prod/video/campusTV/zippedHomeVideo.mp4" autoplay
+        loop></video>
     </div>
-
-    <!-- 5.v-model 创建双向绑定-->
-    <el-input v-model="info"></el-input>
+    <div class="container">
+      <div class="desc"></div>
+      <div class="login">
+        <div class="login-wrapper">
+          <el-form :model="form" label-width="80px">
+            <el-form-item label="用户名：">
+              <el-input v-model="form.name"></el-input>
+            </el-form-item>
+            <el-form-item label="密码：">
+              <el-input v-model="form.passwd" show-password></el-input>
+            </el-form-item>
+          </el-form>
+          <div class="operator">
+            <el-button size="small" @click="login">登录</el-button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-const msg = '<h1>哈哈哈</h1>';
 
 export default {
   // 预定义属性
@@ -34,11 +34,10 @@ export default {
   // 组件当中所有的响应式数据
   data: function () {
     return {
-      message: msg,
-      idName: 'app',
-      isShow: true,
-      nameArr: ['pjw', 'ss', 'hello'],
-      info: '123456123'
+      form: {
+        name: '',
+        passwd: ''
+      },
     }
   },
   // 方法
@@ -46,22 +45,83 @@ export default {
     createHelloMsg() {
       console.log(this.info)
     },
+    checkParams() {
+      return this.form.name && this.form.passwd;
+    },
+    login() {
+      // 参数校验
+      if (!this.checkParams()) {
+        this.$notify({
+          title: '错误',
+          message: '登录参数不完整',
+          type: 'error'
+        });
+      } else {
+        // TODO: 网络请求
+        // const res = axios.get('url');
+        this.$notify({
+          title: '成功',
+          message: `登录成功, 用户名：${this.form.name}；密码：${this.form.passwd}`,
+          type: 'success'
+        });
+      }
+    },
   },
 
   // 生命周期函数之一
   mounted() {
     // 当 当前组件 被挂载时，出发执行
     setTimeout(() => {
-      this.isShow = false
+      this.isShow = false,
+        this.isHighLight = true
     }, 3000)
   },
 }
 </script>
 
+
 <style lang="scss">
+/**
+使用了scoped关键字，当前样式只应用于此组件以及子组件，不会影响父组件
+*/
 html,
 body {
   margin: 0;
   padding: 0;
+}
+
+.container {
+  display: flex;
+}
+
+.operator {
+  display: flex;
+  justify-content: center;
+}
+
+.desc {
+  width: 60%;
+}
+
+.login {
+  padding-top: 150px;
+
+  .login-wrapper {
+    background-color: #fff;
+    width: 300px;
+    padding: 40px;
+    border-radius: 10px;
+  }
+}
+
+.bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+
+  video {
+    width: 100%;
+  }
 }
 </style>
