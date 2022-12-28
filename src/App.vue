@@ -2,12 +2,11 @@
   <!-- 0.v-bind -->
   <div class="page">
     <div class="bg-video">
-      <video src="https://s3plus.meituan.net/zhaopin-official-website-prod/video/campusTV/zippedHomeVideo.mp4" autoplay
+      <video src="./assets/HomeVideo.mp4" autoplay
         loop></video>
     </div>
     <div class="container">
       <!-- <ChildComp></ChildComp> -->
-
       <div class="desc"></div>
       <div class="login">
         <div class="login-wrapper">
@@ -86,9 +85,9 @@ export default {
       this.isHighLight = true;
     }, 3000)
 
-    setInterval(() => {
-      this.isShowChild = !this.isShowChild;
-    }, 3000)
+    // setInterval(() => {
+    //   this.isShowChild = !this.isShowChild;
+    // }, 3000)
   },
 }
 </script>

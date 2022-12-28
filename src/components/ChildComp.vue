@@ -1,10 +1,40 @@
 <template>
-    <div>这是我们的子组件</div>
+    <div>
+        <el-input v-model="message"></el-input>
+        <el-input v-model="name"></el-input>
+        <div>这是反转之后的值{{ reverseMsg }}</div>
+    </div>
 </template>
 
 <script>
 export default {
     name: 'ChildComp',
+
+    data: function () {
+        return {
+            message: '',
+            name: ''
+        }
+    },
+
+    computed: {
+        reverseMsg: function () {
+            return this.message.split('').reverse().join('') + this.name
+        }
+    },
+
+    watch: {
+        name: function (newValue, oldValue) {
+            console.log(newValue, oldValue)
+        },
+        message: {
+            handler: function (newValue, oldValue) {
+                console.log('message', newValue)
+                console.log('message', oldValue)
+            },
+            immediate: true
+        }
+    },
 
     // 生命周期函数
     beforeCreate() {
@@ -46,4 +76,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 </style>
