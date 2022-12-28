@@ -10,7 +10,7 @@
       <div class="desc"></div>
       <div class="login">
         <div class="login-wrapper">
-          <child-comp v-if="isShowChild"></child-comp>
+          <child-comp v-if="isShowChild" :info="pInfo"></child-comp>
           <el-form :model="form" label-width="80px">
             <el-form-item label="用户名：">
               <el-input v-model="form.name"></el-input>
@@ -47,6 +47,7 @@ export default {
         passwd: '',
       },
       isShowChild: true,
+      pInfo: '这是用来设置默认的input框的值'
     }
   },
   // 方法
@@ -88,6 +89,9 @@ export default {
     // setInterval(() => {
     //   this.isShowChild = !this.isShowChild;
     // }, 3000)
+    setTimeout(() => {
+      this.pInfo = '我的值变化了'
+    }, 5000)
   },
 }
 </script>

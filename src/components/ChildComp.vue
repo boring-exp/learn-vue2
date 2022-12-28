@@ -3,6 +3,14 @@
         <el-input v-model="message"></el-input>
         <el-input v-model="name"></el-input>
         <div>这是反转之后的值{{ reverseMsg }}</div>
+        <!-- 如果info是空，就展示当前父组件没有传递数据， 不为空，正常展示-->
+        <div>{{ info || 当前父组件没有传递数据 }}</div>
+        <!-- <div v-if="info">{{ info }}</div>
+        <div v-else>当前父组件没有传递数据</div> -->
+        <!-- <div>{{ wrapperInfo }}</div> -->
+        <el-input v-model="localInfo"></el-input>
+        <el-input :value="localCompute"></el-input>
+        <el-button @click="monitor">查看值</el-button>
     </div>
 </template>
 
@@ -10,16 +18,33 @@
 export default {
     name: 'ChildComp',
 
+    props: {
+        info: String,
+    },
+
     data: function () {
         return {
             message: '',
-            name: ''
+            name: '',
+            localInfo: '',
+            localComputeRealValue: ''
         }
     },
 
     computed: {
         reverseMsg: function () {
             return this.message.split('').reverse().join('') + this.name
+        },
+        wrapperInfo: function () {
+            return this.info ? this.info : '当前父组件没有传递数据';
+        },
+        localCompute: {
+            get: function() {
+                return this.localComputeRealValue || this.info
+            },
+            set: function(v) {
+                this.localComputeRealValue = v
+            }
         }
     },
 
@@ -31,6 +56,13 @@ export default {
             handler: function (newValue, oldValue) {
                 console.log('message', newValue)
                 console.log('message', oldValue)
+            },
+            immediate: true
+        },
+        info: {
+            handler: function (newValue, oldValue) {
+                console.log('info', newValue, oldValue)
+                this.localInfo = newValue
             },
             immediate: true
         }
@@ -70,6 +102,9 @@ export default {
     methods: {
         handleEvent() {
             console.log('吱吱吱')
+        },
+        monitor() {
+            console.log(this.localCompute, this.localComputeRealValue)
         }
     }
 }
