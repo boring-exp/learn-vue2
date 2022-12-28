@@ -8,8 +8,8 @@
         <!-- <div v-if="info">{{ info }}</div>
         <div v-else>当前父组件没有传递数据</div> -->
         <!-- <div>{{ wrapperInfo }}</div> -->
-        <el-input v-model="localInfo"></el-input>
-        <el-input :value="localCompute"></el-input>
+        <el-input v-model="localCompute"></el-input>
+        <div>需要发送给父级的数据<el-input v-model="localInfo"></el-input></div>
         <el-button @click="monitor">查看值</el-button>
     </div>
 </template>
@@ -38,12 +38,13 @@ export default {
         wrapperInfo: function () {
             return this.info ? this.info : '当前父组件没有传递数据';
         },
+        // 曲线救国，通过事件模式+computed的set/get，直接读取和修改父级数据
         localCompute: {
-            get: function() {
-                return this.localComputeRealValue || this.info
+            get: function () {
+                return this.info
             },
-            set: function(v) {
-                this.localComputeRealValue = v
+            set: function (v) {
+                this.$emit('update-info', v)
             }
         }
     },
@@ -104,7 +105,7 @@ export default {
             console.log('吱吱吱')
         },
         monitor() {
-            console.log(this.localCompute, this.localComputeRealValue)
+            this.$emit('send-data', this.localInfo)
         }
     }
 }

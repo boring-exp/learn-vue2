@@ -10,10 +10,10 @@
       <div class="desc"></div>
       <div class="login">
         <div class="login-wrapper">
-          <child-comp v-if="isShowChild" :info="pInfo"></child-comp>
+          <child-comp @update-info="updateInfo" v-if="isShowChild" :info="pInfo" @send-data="getDataFromChild"></child-comp>
           <el-form :model="form" label-width="80px">
             <el-form-item label="用户名：">
-              <el-input v-model="form.name"></el-input>
+              <el-input v-model="form.name" @input="getUserName"></el-input>
             </el-form-item>
             <el-form-item label="密码：">
               <el-input v-model="form.passwd" show-password></el-input>
@@ -52,6 +52,16 @@ export default {
   },
   // 方法
   methods: {
+    getUserName(value) {
+      console.log(value)
+    },
+    getDataFromChild(data) {
+      console.log('从子级组件获取的数据', data)
+    },
+    updateInfo(v) {
+      console.log(v, 'v')
+      this.pInfo = v
+    },
     createHelloMsg() {
       console.log(this.info)
     },
