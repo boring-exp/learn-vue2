@@ -102,7 +102,6 @@ export default {
 
     methods: {
         handleEvent() {
-            console.log('吱吱吱')
         },
         monitor() {
             this.$emit('send-data', this.localInfo)

@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- <ball-c :ball="inner" @play-ball="getChild"></ball-c> -->
-        <ball-c :ball="referenceData" :val="val"></ball-c>
+        <ball-c :ball="referenceData" :val="val" @val="getFromGrandson" :way="getFromGrandson"></ball-c>
         <ball-t :data-object="dataObj" :data-method="addPdataArr" @data="updateData"></ball-t>
         {{ dataObj.array }}
     </div>
@@ -42,6 +42,9 @@ export default {
             // vue官方的父子间通信方式
             // console.log(param)
             // this.dataObj.array.push(param)
+        },
+        getFromGrandson(val) {
+            console.log('此数据来自于c1组件', val)
         }
     },
     mounted() {
