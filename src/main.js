@@ -16,6 +16,11 @@ new Vue({
   render: h => h(App),
 }).$mount('#app')
 
+new Vue({
+  render: h => h(BallP),
+  // render: h => h(App),
+}).$mount('#ball')
+
 
 
 {/* <div :id="idName">
