@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import BallP from './components/BallP.vue'
+import MainComp from './components/MainComp.vue'
 
 // 引入elementui
 import ElementUI from 'element-ui';
@@ -20,6 +21,11 @@ new Vue({
   render: h => h(BallP),
   // render: h => h(App),
 }).$mount('#ball')
+
+new Vue({
+  render: h => h(MainComp),
+  // render: h => h(App),
+}).$mount('#main')
 
 
 
