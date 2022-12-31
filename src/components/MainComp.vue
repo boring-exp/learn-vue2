@@ -4,7 +4,7 @@
             <div slot="header">
                 <el-button @click="fresh">控制子组件</el-button>
             </div>
-            <parent-control ref="child" :refresh="refresh"/>
+            <parent-control ref="child" :refresh="refresh" :user="user"/>
         </el-card>
     </div>
 </template>
@@ -17,9 +17,20 @@ export default {
     components: {
         ParentControl
     },
+    provide: function() {
+        // 传递对象
+        return {
+            text: this.msg
+        }
+    },
     data: function() {
         return {
             refresh: false,
+            msg: {
+                text: '哈哈哈'
+            },
+            user: {
+            },
         }
     },
     methods: {
@@ -34,6 +45,17 @@ export default {
             // 方法一
             // this.refresh = !this.refresh;
         }
+    },
+    mounted() {
+        setTimeout(() => {
+            // 变更对象的值
+            this.msg.text = '哈哈哈，我变了'
+            console.log(this.msg, this.injectVal)
+
+            // 异步加载
+            // 受 ES5 的限制，Vue.js 不能检测到对象属性的添加或删除。
+            this.$set(this.user, 'info', {name: '大象'})
+        }, 5000)
     }
 }
 </script>
